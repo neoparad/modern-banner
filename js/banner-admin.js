@@ -1,5 +1,5 @@
 /**
- * バナー管理画面用のJavaScript
+ * バナー管理画面用JavaScript
  */
 document.addEventListener('DOMContentLoaded', () => {
     // 画像アップロード処理
@@ -53,9 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else {
                         preview.src = image.url;
                     }
-
-                    // 画像の更新時にプレビューを更新
-                    updateImagePreview(uploadWrap);
                 });
 
                 mediaUploader.open();
@@ -63,96 +60,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // 画像設定のプレビュー更新
-    const updateImagePreview = (wrap) => {
-        const preview = wrap.querySelector('.image-preview');
-        if (!preview) return;
-
-        const loadingSelect = wrap.closest('td').querySelector('select[name*="loading"]');
-        const fetchPrioritySelect = wrap.closest('td').querySelector('select[name*="fetchpriority"]');
-        const altInput = wrap.closest('td').querySelector('input[name*="alt"]');
-        const customAttrsTextarea = wrap.closest('td').querySelector('textarea[name*="custom_attributes"]');
-
-        // 属性の更新
-        if (loadingSelect) {
-            preview.setAttribute('loading', loadingSelect.value);
-        }
-        if (fetchPrioritySelect) {
-            preview.setAttribute('fetchpriority', fetchPrioritySelect.value);
-        }
-        if (altInput) {
-            preview.setAttribute('alt', altInput.value);
-        }
-
-        // カスタム属性の適用
-        if (customAttrsTextarea) {
-            const customAttrs = parseCustomAttributes(customAttrsTextarea.value);
-            Object.entries(customAttrs).forEach(([key, value]) => {
-                preview.setAttribute(key, value);
-            });
-        }
-    };
-
-    // カスタム属性のパース
-    const parseCustomAttributes = (attributesString) => {
-        const attrs = {};
-        const matches = attributesString.match(/([a-zA-Z0-9_-]+)=['"](.*?)['"]/g);
-        
-        if (matches) {
-            matches.forEach(match => {
-                const [key, value] = match.split('=');
-                attrs[key] = value.replace(/['"]/g, '');
-            });
-        }
-        return attrs;
-    };
-
-    // フォームの変更監視
-    const initializeFormWatcher = () => {
-        const imageSettings = document.querySelectorAll('.image-settings');
-        
-        imageSettings.forEach(settings => {
-            const inputs = settings.querySelectorAll('input, select, textarea');
-            inputs.forEach(input => {
-                input.addEventListener('change', () => {
-                    updateImagePreview(settings.closest('td').querySelector('.image-upload-wrap'));
-                });
-            });
-        });
-    };
-
-    // カスタムCSSのライブプレビュー
+    // カスタムCSSのプレビュー機能
     const initializeCustomCssPreview = () => {
         const cssTextarea = document.querySelector('textarea[name="custom_css"]');
+        if (!cssTextarea) return;
+
         const previewStyle = document.createElement('style');
         document.head.appendChild(previewStyle);
 
-        if (cssTextarea) {
-            cssTextarea.addEventListener('input', (e) => {
-                previewStyle.textContent = e.target.value;
-            });
-        }
+        cssTextarea.addEventListener('input', (e) => {
+            previewStyle.textContent = e.target.value;
+        });
     };
 
     // フォームのバリデーション
     const initializeFormValidation = () => {
         const form = document.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', (e) => {
-                const linkUrl = form.querySelector('input[name="link_url"]').value;
-                const pcImage = form.querySelector('input[name="pc_image"]').value;
-                
-                if (!linkUrl || !pcImage) {
-                    e.preventDefault();
-                    alert('リンクURLとPC用バナー画像は必須です。');
-                }
-            });
-        }
+        if (!form) return;
+
+        form.addEventListener('submit', (e) => {
+            const title = form.querySelector('input[name="title"]').value;
+            const linkUrl = form.querySelector('input[name="link_url"]').value;
+            const pcImage = form.querySelector('input[name="pc_image"]').value;
+            
+            if (!title || !linkUrl || !pcImage) {
+                e.preventDefault();
+                alert('タイトル、リンクURL、PC用バナー画像は必須項目です。');
+            }
+        });
     };
 
     // 初期化
     initializeImageUploader();
-    initializeFormWatcher();
     initializeCustomCssPreview();
     initializeFormValidation();
 });

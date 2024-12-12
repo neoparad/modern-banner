@@ -13,6 +13,7 @@
     margin-top: 10px;
     max-width: 200px;
     height: auto;
+    border: 1px solid #ddd;
 }
 
 .image-settings {
@@ -23,14 +24,6 @@
     border-radius: 4px;
 }
 
-.image-settings p {
-    margin: 0 0 15px;
-}
-
-.image-settings p:last-child {
-    margin-bottom: 0;
-}
-
 /* フロントエンド用スタイル
 ----------------------------------------*/
 .modern-banner {
@@ -39,6 +32,12 @@
     transition: all 0.3s ease-in-out;
     opacity: 0;
     transform: translateY(100%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modern-banner.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* PC表示 */
@@ -55,7 +54,6 @@
 
     .modern-banner-image-pc {
         display: block;
-        max-width: 250px;
         height: auto;
     }
 
@@ -88,12 +86,6 @@
     }
 }
 
-/* 表示アニメーション */
-.modern-banner.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 /* バナーリンク */
 .modern-banner-link {
     display: block;
@@ -102,6 +94,14 @@
 
 .modern-banner-link:hover {
     opacity: 0.95;
+}
+
+.modern-banner img {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    vertical-align: bottom;
 }
 
 /* 閉じるボタン */
@@ -135,21 +135,6 @@
     outline-offset: 2px;
 }
 
-/* 画像の最適化 */
-.modern-banner img {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-}
-
-/* プリント時の非表示 */
-@media print {
-    .modern-banner {
-        display: none !important;
-    }
-}
-
 /* ダークモード対応 */
 @media (prefers-color-scheme: dark) {
     .modern-banner-close {
@@ -158,5 +143,12 @@
 
     .modern-banner-close:hover {
         background: #444;
+    }
+}
+
+/* プリント時の非表示 */
+@media print {
+    .modern-banner {
+        display: none !important;
     }
 }
