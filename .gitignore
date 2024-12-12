@@ -1,0 +1,40 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Node modules
+node_modules/
+package-lock.json
+
+# Logs
+*.log
+error_log
+access_log
+
+# Compiled files
+*.map
+*.min.js
+*.min.css
+
+# WordPress specific
+*.pot
+*.po
+*.mo
+*.php-tmp
+
+# Misc
+.sass-cache/
+*.bak
+*.swp
+*.zip

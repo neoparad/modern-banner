@@ -1,0 +1,162 @@
+/**
+ * Modern Banner Plugin Styles
+ */
+
+/* 管理画面用スタイル
+----------------------------------------*/
+.image-upload-wrap {
+    margin-bottom: 15px;
+}
+
+.image-preview {
+    display: block;
+    margin-top: 10px;
+    max-width: 200px;
+    height: auto;
+}
+
+.image-settings {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+}
+
+.image-settings p {
+    margin: 0 0 15px;
+}
+
+.image-settings p:last-child {
+    margin-bottom: 0;
+}
+
+/* フロントエンド用スタイル
+----------------------------------------*/
+.modern-banner {
+    position: fixed;
+    z-index: 999;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+/* PC表示 */
+@media screen and (min-width: 481px) {
+    .modern-banner.pc {
+        right: 20px;
+        bottom: 20px;
+        display: block;
+    }
+
+    .modern-banner.sp {
+        display: none;
+    }
+
+    .modern-banner-image-pc {
+        display: block;
+        max-width: 250px;
+        height: auto;
+    }
+
+    .modern-banner-image-sp {
+        display: none;
+    }
+}
+
+/* スマートフォン表示 */
+@media screen and (max-width: 480px) {
+    .modern-banner.sp {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: block;
+    }
+
+    .modern-banner.pc {
+        display: none;
+    }
+
+    .modern-banner-image-sp {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .modern-banner-image-pc {
+        display: none;
+    }
+}
+
+/* 表示アニメーション */
+.modern-banner.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* バナーリンク */
+.modern-banner-link {
+    display: block;
+    text-decoration: none;
+}
+
+.modern-banner-link:hover {
+    opacity: 0.95;
+}
+
+/* 閉じるボタン */
+.modern-banner-close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 24px;
+    height: 24px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.modern-banner-close:hover {
+    background: #333;
+}
+
+/* アクセシビリティ対応 */
+.modern-banner-close:focus {
+    outline: 2px solid #007cba;
+    outline-offset: 2px;
+}
+
+/* 画像の最適化 */
+.modern-banner img {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+/* プリント時の非表示 */
+@media print {
+    .modern-banner {
+        display: none !important;
+    }
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+    .modern-banner-close {
+        background: #333;
+    }
+
+    .modern-banner-close:hover {
+        background: #444;
+    }
+}
